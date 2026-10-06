@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>Parkowanie Karpacz</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .site-frame {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      display: block;
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      border: 0;
+      background: #ffffff;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .site-frame.is-loaded {
+      opacity: 1;
+    }
+
+    .loader {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      background: #ffffff;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+
+    .loader.is-hidden {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .spinner {
+      width: 42px;
+      height: 42px;
+      border: 3px solid #e5e7eb;
+      border-top-color: #111827;
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .site-frame,
+      .loader {
+        transition: none;
+      }
+
+      .spinner {
+        animation-duration: 1.5s;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="spinner"></div>
+  </div>
+
+  <iframe
+    id="siteFrame"
+    class="site-frame"
+    src="https://parkowanie-karpacz-4rhq.arcada.app/"
+    title="Parkowanie Karpacz"
+    loading="eager"
+    allow="accelerometer; autoplay; clipboard-read; clipboard-write; encrypted-media; fullscreen; geolocation; gyroscope; payment"
+    referrerpolicy="strict-origin-when-cross-origin"
+  ></iframe>
+
+  <script>
+    const frame = document.getElementById('siteFrame');
+    const loader = document.getElementById('loader');
+
+    frame.addEventListener('load', () => {
+      frame.classList.add('is-loaded');
+      loader.classList.add('is-hidden');
+    });
+  </script>
+</body>
+</html>
